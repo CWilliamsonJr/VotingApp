@@ -7,9 +7,10 @@
   <title>Dashboard for <?php echo $_COOKIE['user_name'] ?> Polls </title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./styles/style.css">
   <?php
-    require './includes/includes.inc';
+    require_once './includes/includes.inc';
    ?>
 </head>
 
@@ -21,12 +22,25 @@
   </div>
   <?php
     $logged_in = $_COOKIE['logged_in'];
-    if($logged_in === 'yes'){
+    if($logged_in === 'yes'){ // if you are still logged in
       $username = $_COOKIE['user_name'];
-      if(isset($_POST['ViewOrEdit'])){
-        $todo = explode('_',$_POST['ViewOrEdit']);
-        if($todo[0] === 'Edit'){
+      var_dump($_POST);
+      if(isset($_POST['Task'])){
+        $todo = explode('_',$_POST['Task']); // Checks to see if you're edting or view a poll
+        switch($todo[0]){
+          case 'Edit':
+            require './includes/edit.inc';
+          break;
+          case 'Update':
+            require './includes/update.inc';
+            require './includes/edit.inc';
+          break;
+          case 'Delete':
+          require './includes/delete.inc';
           require './includes/edit.inc';
+          break;
+          default:
+            require  './includes/loggedinSite.inc';
         }
       }else{
         require  './includes/loggedinSite.inc';
@@ -37,5 +51,6 @@
    ?>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" ></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+   <script src="./scripts/index.js" ></script>
 </body>
 </html>

@@ -1,25 +1,30 @@
 <?php
 //$username = $_COOKIE['user_name'];
-$sql = "SELECT questions.Question FROM questions WHERE user_name = '$username'"; // retrives user name from the database
-$query = $dbConnection->query($sql); // sends query to the database
+$sql = "SELECT questions.Question FROM questions WHERE user_name =?"; // retrives user name from the database
+
+//$query = $dbConnection->query($sql); // sends query to the database
+$stmt = $dbConnection->prepare($sql);
+$stmt->bind_param("s",$username);
+$stmt->execute();
+$query = $stmt->get_result();
 $numrows = $query->num_rows; // tells how many rows were returned
 
 if(!empty($numrows)){
   $polls = '';
   $i = 0;
   while($array = $query->fetch_assoc()){
-    $polls .= '<li class="polls">';
-    $polls .=   '<div>';
-    $polls .=     '<label class="radio-inline">';
-    $polls .=       '<input type="radio" name="ViewOrEdit" id="optionsRadios'.$i++.'" value="View_'.$array['Question'].'">';
-    $polls .=         'View';
-    $polls .=     '</label>';
-    $polls .=     '<label class="radio-inline">';
-    $polls .=       '<input type="radio" name="ViewOrEdit" id="optionsRadios'.$i++.'" value="Edit_'.$array['Question'].'">';
-    $polls .=         'Edit &nbsp;&nbsp;&nbsp;<span class="h4"> <strong>'.$array['Question'].'</strong> </span>';
-    $polls .=     '</label>';
-    $polls .=   '</div>';
-    $polls .= '</li><br/>';
+    $polls .= '<li class="polls">
+                 <div>
+                   <label class="radio-inline">
+                  <input type="radio" name="Task" id="optionsRadios'.$i++.'" value="View_'.$array['Question'].'">
+                      View
+                   </label>
+                  <label class="radio-inline">
+                     <input type="radio" name="Task" id="optionsRadios'.$i++.'" value="Edit_'.$array['Question'].'">
+                       Edit &nbsp;&nbsp;&nbsp;<span class="h4"> <strong>'.$array['Question'].'</strong> </span>
+                  </label>
+                </div>
+            </li><br/>';
   }
 }else{
   $polls = 'You currently have no polls';
