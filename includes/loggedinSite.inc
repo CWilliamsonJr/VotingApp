@@ -34,7 +34,7 @@ if(!empty($numrows)){
 
 
 
-  $formAction = "'". htmlspecialchars($_SERVER["PHP_SELF"]) . "'";
+  
   $html = <<<HTML
 <div class='container'>
   <div class='row'>

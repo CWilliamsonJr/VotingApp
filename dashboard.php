@@ -21,10 +21,14 @@
     </div>
   </div>
   <?php
+
     $logged_in = $_COOKIE['logged_in'];
     if($logged_in === 'yes'){ // if you are still logged in
       $username = $_COOKIE['user_name'];
-      var_dump($_POST);
+      $formAction = "'". htmlspecialchars($_SERVER["PHP_SELF"]) . "'";
+
+      dump($_POST,'post');
+      dump($_SESSION,'_SESSION');
       if(isset($_POST['Task'])){
         $todo = explode('_',$_POST['Task']); // Checks to see if you're edting or view a poll
         switch($todo[0]){
@@ -35,9 +39,8 @@
             require './includes/update.inc';
             require './includes/edit.inc';
           break;
-          case 'Delete':
-          require './includes/delete.inc';
-          require './includes/edit.inc';
+          case 'View':
+            require './includes/view.inc';
           break;
           default:
             require  './includes/loggedinSite.inc';
