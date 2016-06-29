@@ -1,7 +1,8 @@
 <?php
-  session_start();
+    session_start();
+    error_reporting(-1);
+    ini_set('display_errors', 'On');
+    require 'dblogin.inc';
+    require 'functions.inc';
 
-  require 'dblogin.inc';
-  require 'functions.inc';
-  
- ?>
+?>

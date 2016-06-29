@@ -4,12 +4,12 @@
       if(!empty($value)){
         $post[$key] = $value;
       }else{ // contains the empty string to be deleted
-        foreach ($_SESSION as $choice => $ID) { // loops through the values in _SESSION
+        foreach ($_SESSION['options'] as $choice => $ID) { // loops through the values in _SESSION
         $emptyVal =   preg_replace('/\.|\s/', '_', $choice);  // converts periods and spaces to _
 
         if(strcmp($key,$choice) === 0){  // looks for the corresponding key
             $delete = $ID;  // sets delete to the correct ID.
-            unset($_SESSION[$choice]);
+            unset($_SESSION['options'][$choice]);
             require 'delete.inc';
           }
         }
@@ -22,9 +22,10 @@
     $stmt = $dbConnection->prepare($sql); // sends query to the database
     $stmt->bind_param("si",$choice,$id); // binds variables to be sent with query
 
-    foreach ($_SESSION as $key => $value){
+    foreach ($_SESSION['options'] as $key => $value){
         $update =   preg_replace('/\.|\s/', '_', $key);
         $choice = $_POST[$update];
+        
         $id = $value;
         $stmt->execute(); // sends query
         if (!$stmt->execute()) {
