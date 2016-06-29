@@ -13,41 +13,37 @@
             require 'delete.inc';
           }
         }
-
       }
-
     }
 
     $sql = "UPDATE polls SET Choice = ? WHERE ID = ?";
     $stmt = $dbConnection->prepare($sql); // sends query to the database
     $stmt->bind_param("si",$choice,$id); // binds variables to be sent with query
 
-    foreach ($_SESSION['options'] as $key => $value){
-        $update =   preg_replace('/\.|\s/', '_', $key);
-        $choice = $_POST[$update];
+    foreach ($_SESSION['options'] as $key => $value){ // Updates all the poll choices
+        $update =   preg_replace('/\.|\s/', '_', $key);// converts periods and spaces to _
+        if(!empty($key)){ // makes sure that a key isn't blank
+            $choice = $_POST[$update];
+        }
         
         $id = $value;
         $stmt->execute(); // sends query
-        if (!$stmt->execute()) {
-            echo "Update failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
     }
+    if(strcmp($_SESSION['q'],$_POST['poll_question']) !== 0  && !empty($_POST['poll_question'])){
+        $q_id =$_SESSION['q_id'];
+        $poll_question = $_POST['poll_question'];
 
+        $sql = "UPDATE questions SET Question = ? WHERE ID = ?";
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("si",$poll_question,$q_id); // binds variables to be sent with query
+        $stmt->execute();
 
-
-
-    // $stmt = $dbConnection->prepare($sql); // sends query to the database
-    // $stmt->bind_param("ss",$id,$choice); // binds variables to be sent with query
-    // $stmt->execute(); // sends query
-    //echo $stmt->affected_rows;
-/*
-    if($stmt === false) {
-      trigger_error('Wrong SQL: ' . $sql . ' Error: ' . $conn->error, E_USER_ERROR);
+        $sql =  "UPDATE polls SET Question = ? WHERE Question_id = ?";
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("si",$poll_question,$q_id); // binds variables to be sent with query
+        $stmt->execute();
+        $todo[1] = $poll_question;
+    }else if(empty($_POST['poll_question'])){
+        echo "<div class='bg-danger'>Your Poll Question is blank, can't have a blank question</div>";
     }
-
-    if (!$stmt->execute()) {
-        echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-    }
-    //*/
-
  ?>

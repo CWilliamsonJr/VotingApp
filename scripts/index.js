@@ -1,8 +1,8 @@
+'use strict';
 $(document).ready(function(){
     $('.delete_btn').on('click',function(){
-        console.log($(this).find('.poll_form').attr('id'));
-
+        $(this).siblings('.choice').val('');
+        $('#update_btn').trigger('click');
     });
-
-
+    $('#new_option').focus();
 });

@@ -1,12 +1,15 @@
 <?php
-// INSERT INTO `votingapp`.`polls` (`ID`, `Choice`, `Chosen`, `User_created_id`, `Question_id`, `Question`) VALUES (NULL, 'Going to the movies', '0', '2', '12', 'What is your favorite activity?')
-$sql = "INSERT INTO polls (`ID`, `Choice`, `Chosen`, `User_created_id`, `Question_id`, `Question`) VALUES (NULL, ? , '0', ?, ?, ?)";
-$question = explode('_', $_POST['Task']);
-$bind_type = 'siis';
+if(!empty($_POST['option'])){
 
-$stmt = $dbConnection->prepare($sql); // sends query to the database
-$stmt->bind_param("siis",$_POST['option'],$_SESSION['user_id'],$_SESSION['q_id'],$question[1]); // binds variables to be sent with query
-$stmt->execute(); // sends query
+    $sql = "INSERT INTO polls (`ID`, `Choice`, `Chosen`, `User_created_id`, `Question_id`, `Question`) VALUES (NULL, ? , '0', ?, ?, ?)";
+    $question = explode('_', $_POST['Task']);
+    $bind_type = 'siis';
 
+    $stmt = $dbConnection->prepare($sql); // sends query to the database
+    $stmt->bind_param("siis",$_POST['option'],$_SESSION['user_id'],$_SESSION['q_id'],$question[1]); // binds variables to be sent with query
+    $stmt->execute(); // sends query
+}else{
+    echo "<div class='bg-danger'>You can't enter a blank option</div>";
+}
 
 ?>

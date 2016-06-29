@@ -27,8 +27,6 @@ if ($logged_in === 'yes') { // if you are still logged in
     $username = $_COOKIE['user_name'];
     $formAction = "'" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'";
 
-    dump($_POST, 'post');
-    dump($_SESSION, '_SESSION');
     if (isset($_POST['Task'])) {
         $todo = explode('_', $_POST['Task']); // Checks to see what you are trying to do
         switch ($todo[0]) {
@@ -45,6 +43,8 @@ if ($logged_in === 'yes') { // if you are still logged in
             case 'Insert':
                 require './includes/insert.inc';
                 require './includes/edit.inc';
+                break;
+            case 'Logout':
                 break;
             default:
                 require './includes/loggedinSite.inc';
