@@ -1,40 +1,40 @@
+<?php
+require_once './includes/includes.inc';
 
-  <?php
-    require_once './includes/includes.inc';
+if (!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))) { // checks to see if user name and password was entered
 
-    if(!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))){ // checks to see if user name and password was entered
+    $username = $_POST['user_name'];
+    $password = $_POST['user_password'];
+    $failedLogin = 'Wrong user name or password';
 
-        $username = $_POST['user_name'];
-        $password = $_POST['user_password'];
-        $failedlogin = 'Wrong user name or password';
+    $sql = "SELECT user_name,user_password,user_id FROM users WHERE user_name = ? AND user_password = ?"; // retrieves user name from the database
+    $stmt = $dbConnection->prepare($sql); // sends query to the database
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $query = $stmt->get_result();
+    $num_rows = $query->num_rows; // tells how many rows were returned
+    $array = $query->fetch_assoc(); // returns username and password from the database
+    $num_rows = $query->num_rows; // tells how many rows were returned
+    $stmt->close();
 
-        $sql = "SELECT user_name,user_password,user_id FROM users WHERE user_name = ? AND user_password = ?"; // retrives user name from the database
-        $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("ss",$username,$password);
-        $stmt->execute();
-        $query = $stmt->get_result();
-        $numrows = $query->num_rows; // tells how many rows were returned
-        $array = $query->fetch_assoc(); // returns username and password from the database
-        $numrows = $query->num_rows; // tells how many rows were returned
-        $stmt->close();
-        
-        $cookieTime = time() + 3600 * 24 * 30;
-        if(!empty($numrows)){
-          if($array['user_password'] === $password){
-            setcookie('user_name',$username,$cookieTime);
-            setcookie('user_id',$array['user_id'],$cookieTime);
-            setcookie('logged_in','yes',$cookieTime);
+    $cookieTime = time() + 3600 * 24 * 30;
+    if (!empty($num_rows)) {
+        if ($array['user_password'] === $password) {
+            $_SESSION['uId'] = $array['user_id'];
+            $_SESSION['uName'] = $array['user_name'];
+            //setcookie('user_name', $username, $cookieTime);
+            //setcookie('user_id', $array['user_id'], $cookieTime);
+            setcookie('logged_in', 'yes', $cookieTime);
             Redirect('dashboard.php'); // sends user to the polls page
-          }else{
-            echo $failedlogin;
-          }
-        }else{
-          echo $failedlogin;
+        } else {
+            echo $failedLogin;
         }
-
-    }else{
-      echo "you're not logged in";
+    } else {
+        echo $failedLogin;
     }
-   ?>
-</body>
-</html>
+
+} else {
+    echo "you're not logged in";
+}
+   
+

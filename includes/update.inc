@@ -1,4 +1,5 @@
 <?php
+ 
     foreach($_POST as $key => $value){
       $delete; // stores the ID that holds the row to delete
       if(!empty($value)){
@@ -46,4 +47,4 @@
     }else if(empty($_POST['poll_question'])){
         echo "<div class='bg-danger'>Your Poll Question is blank, can't have a blank question</div>";
     }
- ?>
+ 

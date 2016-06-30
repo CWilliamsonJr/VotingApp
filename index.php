@@ -16,11 +16,11 @@
         <form action='./logincheck.php' method="post">
           <div class="form-group">
            <label for="user_name">User Name:</label>
-           <input name='user_name' type="text" class="form-control input_width" id="user_name" placeholder="User Name" required>
+           <input name='user_name' type="text" class="form-control input-width" id="user_name" placeholder="User Name" required>
           </div>
          <div class="form-group">
            <label for="user_password">Password</label>
-           <input name='user_password' type="password" class="form-control input_width" id="user_password" placeholder="Password" required>
+           <input name='user_password' type="password" class="form-control input-width" id="user_password" placeholder="Password" required>
          </div>
          <button type="submit" class="btn btn-primary">Log In</button>
       </form>

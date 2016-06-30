@@ -1,7 +1,8 @@
 <?php
 
-    $user_id = $_COOKIE['user_id'];
+    $user_id = $_SESSION['uId'];
     $question = $todo[1];
+
 
     $sql = "SELECT Choice,ID,Question_id,User_created_id,Question FROM polls WHERE User_created_id = ? AND Question = ? "; // retrieves user name from the database
     $stmt = $dbConnection->prepare($sql); // sends query to the database
@@ -10,7 +11,10 @@
     $query = $stmt->get_result();
     $i = 0; // counter to be used for unique ID's
     $polls = ''; // used to hold th HTML for the polls
-    session_unset();  // reset's session variables.
+
+    unset($_SESSION['options']);  // reset's session variables.
+    unset($_SESSION['q_id']);
+    unset($_SESSION['q']);
 
     while ($array = $query->fetch_assoc()) { //returns the questions from the database
         $i++;
@@ -43,27 +47,23 @@
         <div>
             <form id="options" action=$formAction method='post'>
                 <div> <strong> Poll Question:</div>
-                <div><strong><input class='input_width' name="poll_question" value="$question" >  </div> <br/></strong>
+                <div><strong><input class='input-width' name="poll_question" value="$question" >  </div> <br/></strong>
                 <strong>Poll Choices:(Leaving an option black will delete it)</strong>
                 $polls
                 <button id="update_btn" type="submit" name="Task" value="Update_$question" class="btn btn-primary">Update Poll</button>
             </form>
         </div>
         <div>
-            <br/>
+            <br/><br/>
             <form id="add_option" action=$formAction method='post'>
-                <button type="submit" name="Task" value="Insert_$question" class="btn btn-success btn-bloc input_width"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></button>
+                <button type="submit" name="Task" value="Insert_$question" class="btn btn-success btn-block input-width"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></button>
                 <div> <strong> Add a new option:</div>
-                <div><strong><input class='input_width' id="new_option" name="option" value="" >  </div> <br/>            
-            </form>
-            
-            <button type="submit" name="Task" value="Default_" class="btn btn-primary btn-bloc input_width">View All Your Polls</button>                    
-            
+                <div><strong><input class='input-width' id="new_option" name="option" value="" ></div>
+            </form> <br/><br/>
+            <div class='poll_btn'><button type="submit" id="see_polls" name="Task" value="Default_" class="btn btn-primary btn-block input-width">View All Your Polls</button> </div>
         </div>
       </div>
     </div>
 HTML;
     echo $html;
 
-
-?>

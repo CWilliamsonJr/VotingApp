@@ -1,8 +1,12 @@
 
-.input_width{
-  width: 300px;
+.input-width {
+    width: 300px;
 }
 
-.polls{
-  list-style: none;
+.margin_top {
+    margin-top: 20px;
+}
+
+.polls {
+    list-style: none;
 }

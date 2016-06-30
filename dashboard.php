@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard for <?php echo $_COOKIE['user_name'] ?> Polls </title>
+    <title>Dashboard for <?php echo $_SESSION['uName'] ?> Polls </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -24,8 +24,9 @@
 
 $logged_in = $_COOKIE['logged_in'];
 if ($logged_in === 'yes') { // if you are still logged in
-    $username = $_COOKIE['user_name'];
-    $formAction = "'" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'";
+    
+    $username = $_SESSION['uName'];
+    $formAction = "'".htmlspecialchars($_SERVER["PHP_SELF"])."'";
 
     if (isset($_POST['Task'])) {
         $todo = explode('_', $_POST['Task']); // Checks to see what you are trying to do
@@ -33,9 +34,20 @@ if ($logged_in === 'yes') { // if you are still logged in
             case 'Edit':
                 require './includes/edit.inc';
                 break;
+            case 'Create':
+                require '/includes/create.inc';
+                require './includes/edit.inc';
+                break;
+            case 'Make':
+                require './includes/make_poll.inc';
+                break;
             case 'Update':
                 require './includes/update.inc';
                 require './includes/edit.inc';
+                break;
+            case 'Delete':
+                require './includes/delete_poll.inc';
+                require './includes/loggedInSite.inc';
                 break;
             case 'View':
                 require './includes/view.inc';
@@ -47,10 +59,10 @@ if ($logged_in === 'yes') { // if you are still logged in
             case 'Logout':
                 break;
             default:
-                require './includes/loggedinSite.inc';
+                require './includes/loggedInSite.inc';
         }
     } else {
-        require './includes/loggedinSite.inc';
+        require './includes/loggedInSite.inc';
     }
 } else {
     Redirect('index.php');

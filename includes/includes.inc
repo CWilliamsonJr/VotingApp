@@ -1,5 +1,5 @@
 <?php
     session_start();  
-    require 'dblogin.inc';
+    require 'db_login.inc';
     require 'functions.inc';
-?>
+
