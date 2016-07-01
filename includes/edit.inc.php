@@ -36,8 +36,7 @@
         ';
         }
     }
-    dump($_POST,'POST');
-    dump($_SESSION,'Session');
+
     unset($_POST['Task']);
     $html = <<<HTML
     <div class='container' xmlns="http://www.w3.org/1999/html">

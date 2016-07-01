@@ -10,9 +10,19 @@
 .polls {
     list-style: none;
 }
-.jumbotron{
+.jumbotron{  /* Moves jumbotron to meet with the nav bar */
     margin-top: -20px;
 }
 .margin_right{
     margin-right: 5px;
+}
+/*Makes everything line up on the dashboard page*/
+.poll_view{
+    margin-left: -40px;
+}
+.poll_view_btn{
+    margin-left: 40px;
+}
+.navbar-btn a:hover {
+    text-decoration: none;
 }

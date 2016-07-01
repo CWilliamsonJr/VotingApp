@@ -8,15 +8,15 @@ $stmt->execute();
 $query = $stmt->get_result();
 $num_rows = $query->num_rows; // tells how many rows were returned
 
-if (!empty($num_rows)) {
+if(!empty($num_rows)) {
     $polls = '';
     $i = 0;
-    while ($array = $query->fetch_assoc()) {
+    while($array = $query->fetch_assoc()) {
         $polls .= '<li class="polls">
-                 <div>
-                   <label class="radio-inline">
+                 <div><div class="h4"> <strong>' . $array['Question'] . '</strong> </div>
+                   <label class="radio-inline"> 
                   <input type="radio" name="Task" id="optionsRadios' . $i++ . '" value="View_' . $array['Question'] . '">
-                      View
+                      View Results
                    </label>
                    <label class="radio-inline">
                      <input type="radio" name="Task" id="optionsRadios' . $i++ . '" value="Edit_' . $array['Question'] . '">
@@ -24,28 +24,28 @@ if (!empty($num_rows)) {
                   </label>
                   <label class="radio-inline">
                      <input type="radio" name="Task" id="optionsRadios' . $i++ . '" value="Delete_' . $array['Question'] . '">
-                       Delete &nbsp;&nbsp;&nbsp;<span class="h4"> <strong>' . $array['Question'] . '</strong> </span>
+                       Delete 
                   </label>
                 </div>
             </li><br/>';
     }
-    $submit_btn = '<button type="submit" class="btn btn-primary">Submit</button>';
+    $submit_btn = '<button type="submit" class="btn btn-primary poll_view_btn">Submit</button>';
 } else {
-    $submit_btn = '<strong>Since you have no polls, start by making one:</strong><br/> <br/>';
+    $submit_btn = 'Since you have no polls, start by making one';
     $polls = 'You currently have no polls';
 }
 
 $html = <<<HTML
 <div class='container'>
   <div class='row'>
-    <div class='h2'>My Polls:</div>
-    <strong>Your current polls:</strong>
-    <form action=$formAction method='post'>
-    <ul>
-      $polls
-    </ul>
+    <div class='h2'>My Polls</div>
+    <strong>Your current polls:</strong><br/><br/>
+    <form action=$formAction method='post' class="poll_view">
+        <ul>
+          $polls
+        </ul>
       $submit_btn
-      <button name="Task" value="Make_polls" type="submit" class="btn btn-success">Create Poll</button>
+      <button name="Task" value="Make_polls" type="submit" class="btn btn-success poll_view_btn">Create Poll</button>
     </form>
   </div>
 </div>

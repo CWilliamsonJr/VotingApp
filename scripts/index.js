@@ -20,11 +20,11 @@ $(document).ready(function(){
     *
     */
 
-    $("#add_option").click(function(){
+    $("#add_option").click(function(){ // adds another input box to the poll
         let newChoice = '<div class="form-group"><input class="input-width" type="text" name="poll_option[]" placeholder="Put your option here"></div>';
         $('#poll_options').append(newChoice);
     });
-    $('#poll_topic').focus();
+    $('#poll_topic').focus(); // sets focus to the input box
 
     
 });

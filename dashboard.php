@@ -18,14 +18,10 @@
     <div class="container-fluid">
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="./dashboard.php"> Home</a></li>
+            <ul class="nav navbar-nav navbar-right margin_right">
+                <li><button class="btn btn-default navbar-btn margin_right"><a href="./dashboard.php" role="button"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></button></li>
+                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="./logout.php">Logout </a><button</li>
             </ul>
-            <form method="post" action='<?php echo "'".htmlspecialchars($_SERVER["PHP_SELF"])."'"; ?>' >
-                <input type="hidden">
-                <button  name="Task" value="Logout_site" type="submit" class="btn btn-default navbar-btn navbar-right margin_right">Sign out</button>
-            </form>
-
         </div>
     </div>
 </nav>
