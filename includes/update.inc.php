@@ -11,7 +11,7 @@
         if(strcmp($key,$choice) === 0){  // looks for the corresponding key
             $delete = $ID;  // sets delete to the correct ID.
             unset($_SESSION['options'][$choice]);
-            require 'delete.inc';
+            require 'delete.inc.php';
           }
         }
       }
@@ -45,6 +45,6 @@
         $stmt->execute();
         $todo[1] = $poll_question;
     }else if(empty($_POST['poll_question'])){
-        echo "<div class='bg-danger'>Your Poll Question is blank, can't have a blank question</div>";
+        echo "<div class='alert alert-danger'>Your Poll Question is blank, can't have a blank question</div>";
     }
  

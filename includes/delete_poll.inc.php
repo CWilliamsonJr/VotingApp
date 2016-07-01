@@ -1,6 +1,5 @@
 <?php
-dump($_SESSION,"SESSION");
-dump($_POST,'POST');
+
 $task = explode('_', $_POST['Task']);
 
 $sql = "DELETE FROM polls WHERE Question = ? AND User_created_id = ?";

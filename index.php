@@ -10,16 +10,40 @@
   <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="">
+            <div class="navbar-brand">Voting Poll Web App</div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="./dashboard.php"> Home</a></li>
+            </ul>
+            <a href="createaccount.php"><button name="Task" value="Logout_site" type="submit" class="btn btn-default navbar-btn navbar-right margin_right">Create Account</button></a>
+        </div>
+    </div>
+</nav>
+<div class='jumbotron'>
+    <div class='container'>
+        <div class='h1'>Welcome</div>
+    </div>
+</div>
   <div class='container'>
     <div class='row'>
-      <div><span class='h1'>Log in to start making polls</span></div>
+
+      <div><span class='h1'>Log in to start making polls</span></div><br/>
+        <?php
+        require_once './includes/includes.inc.php';
+        if(isset($_SESSION['acct_warning'])){
+            echo $_SESSION['acct_warning'];
+            unset($_SESSION['acct_warning']);
+        }
+        ?>
         <form action='./logincheck.php' method="post">
           <div class="form-group">
            <label for="user_name">User Name:</label>
            <input name='user_name' type="text" class="form-control input-width" id="user_name" placeholder="User Name" required>
           </div>
          <div class="form-group">
-           <label for="user_password">Password</label>
+           <label for="user_password">Password:</label>
            <input name='user_password' type="password" class="form-control input-width" id="user_password" placeholder="Password" required>
          </div>
          <button type="submit" class="btn btn-primary">Log In</button>

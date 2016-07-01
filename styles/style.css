@@ -10,3 +10,9 @@
 .polls {
     list-style: none;
 }
+.jumbotron{
+    margin-top: -20px;
+}
+.margin_right{
+    margin-right: 5px;
+}

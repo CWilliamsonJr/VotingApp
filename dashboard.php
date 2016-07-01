@@ -10,11 +10,25 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
     <?php
-    require_once './includes/includes.inc';
+    require_once './includes/includes.inc.php';
     ?>
 </head>
-
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="">
+            <div class="navbar-brand">Voting Poll Web App</div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="./dashboard.php"> Home</a></li>
+            </ul>
+            <form method="post" action='<?php echo "'".htmlspecialchars($_SERVER["PHP_SELF"])."'"; ?>' >
+                <input type="hidden">
+                <button  name="Task" value="Logout_site" type="submit" class="btn btn-default navbar-btn navbar-right margin_right">Sign out</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
 <div class='jumbotron'>
     <div class='container'>
         <div class='h1'>Dashboard</div>
@@ -32,37 +46,41 @@ if ($logged_in === 'yes') { // if you are still logged in
         $todo = explode('_', $_POST['Task']); // Checks to see what you are trying to do
         switch ($todo[0]) {
             case 'Edit':
-                require './includes/edit.inc';
+                require './includes/edit.inc.php';
                 break;
             case 'Create':
-                require '/includes/create.inc';
-                require './includes/edit.inc';
+                require '/includes/create.inc.php';
+                require './includes/edit.inc.php';
                 break;
             case 'Make':
-                require './includes/make_poll.inc';
+                require './make-poll.php';
                 break;
             case 'Update':
-                require './includes/update.inc';
-                require './includes/edit.inc';
+                require './includes/update.inc.php';
+                require './includes/edit.inc.php';
                 break;
             case 'Delete':
-                require './includes/delete_poll.inc';
-                require './includes/loggedInSite.inc';
+                require './includes/delete_poll.inc.php';
+                require './includes/loggedInSite.inc.php';
                 break;
             case 'View':
-                require './includes/view.inc';
+                require './includes/view.inc.php';
                 break;
             case 'Insert':
-                require './includes/insert.inc';
-                require './includes/edit.inc';
+                require './includes/insert.inc.php';
+                require './includes/edit.inc.php';
                 break;
             case 'Logout':
+                setcookie('logged_in', 'yes', time()- 3600 *24 * 30* 12 ); //sets cookie to one year in the past
+                session_unset();
+                session_destroy();
+                Redirect('index.php');
                 break;
             default:
-                require './includes/loggedInSite.inc';
+                require './includes/loggedInSite.inc.php';
         }
     } else {
-        require './includes/loggedInSite.inc';
+        require './includes/loggedInSite.inc.php';
     }
 } else {
     Redirect('index.php');

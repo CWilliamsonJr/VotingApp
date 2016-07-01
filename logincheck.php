@@ -1,5 +1,5 @@
 <?php
-require_once './includes/includes.inc';
+require_once './includes/includes.inc.php';
 
 if (!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))) { // checks to see if user name and password was entered
 
@@ -22,8 +22,6 @@ if (!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))) 
         if ($array['user_password'] === $password) {
             $_SESSION['uId'] = $array['user_id'];
             $_SESSION['uName'] = $array['user_name'];
-            //setcookie('user_name', $username, $cookieTime);
-            //setcookie('user_id', $array['user_id'], $cookieTime);
             setcookie('logged_in', 'yes', $cookieTime);
             Redirect('dashboard.php'); // sends user to the polls page
         } else {

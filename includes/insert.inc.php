@@ -9,6 +9,6 @@ if(!empty($_POST['option'])){
     $stmt->bind_param("siis",$_POST['option'],$_SESSION['user_id'],$_SESSION['q_id'],$question[1]); // binds variables to be sent with query
     $stmt->execute(); // sends query
 }else{
-    echo "<div class='bg-danger'>You can't enter a blank option</div>";
+    echo "<div class='alert alert-danger'>You can't enter a blank option</div>";
 }
 

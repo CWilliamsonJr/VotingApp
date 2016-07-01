@@ -5,5 +5,3 @@ $dbpassword = 'abc123';
 $databaseName = 'votingapp';
 $dbConnection = new mysqli($dbhostname,$dbusername,$dbpassword,$databaseName);
 
-
- ?>
