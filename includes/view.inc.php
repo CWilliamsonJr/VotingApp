@@ -13,18 +13,18 @@ $query = $stmt->get_result();
 $array = $query->fetch_all(MYSQLI_ASSOC);
 
 $totalVotes = 0;
-$rows = array();
-$table = array();
+$rows = array(); // used to store th data
+$table = array(); // will hold the data and the labels
 $table['cols'] = array(  // sets the data type and label for the table
     array('id' => 'Option', 'label' => 'Choice', 'type' => 'string'),
     array('id' => 'Chosen', 'label' => 'Votes', 'type' => 'number')
 );
 
-foreach($array as $key => $r) {
-    $totalVotes += (int)$r['Chosen'];
+foreach($array as $key => $results) { // loops through the query
+    $totalVotes += (int)$results['Chosen'];
     $temp = array();
-    $temp[] = array('v' => (string)$r['Choice']);
-    $temp[] = array('v' => (int)$r['Chosen']);
+    $temp[] = array('v' => (string)$results['Choice']); // poll option
+    $temp[] = array('v' => (int)$results['Chosen']); // poll votes
     $rows[] = array('c' => $temp);
 }
 $table['rows'] = $rows;

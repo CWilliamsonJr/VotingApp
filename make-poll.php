@@ -14,7 +14,7 @@ $html = <<<HTML
                         <div class="form-group"><input class="input-width" type="text" name="poll_option[]" placeholder="Put your option here"></div>
                     </div>
                         <button type="button" id="add_option" class="btn-info btn block input-width ">Add another option</button><br/>
-                        <button type="submit" name="Task" value="Create_poll" class="btn-primary margin_top btn-block input-width">Make Poll</button>
+                        <button type="submit" name="Task" value="Create_poll" class="btn-primary margin-top btn-block input-width">Make Poll</button>
                     </div>
             </form>
 

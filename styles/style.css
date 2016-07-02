@@ -3,10 +3,12 @@
     width: 300px;
 }
 
-.margin_top {
+.margin-top {
     margin-top: 20px;
 }
-
+.margin-top-4{
+    margin-top:100px;
+}
 .polls {
     list-style: none;
 }
@@ -23,6 +25,18 @@
 .poll_view_btn{
     margin-left: 40px;
 }
+.poll-vote{
+    margin-bottom: -20px;
+}
+.poll-choices{
+    border:solid lightgrey 1px;
+    margin-left: -40px;
+    padding-left:-400px;
+    margin-top: 5px;
+    text-align: center;
+}
+
 .navbar-btn a:hover {
     text-decoration: none;
 }
+
