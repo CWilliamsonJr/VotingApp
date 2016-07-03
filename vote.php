@@ -1,10 +1,49 @@
 <?php
+//TODO: AJAX Call for Google charts
+//TODO: App redo with using functions instead of inc
 require_once 'includes/includes.inc.php';
 
 $path = $_SERVER['REQUEST_URI'];
 $path = ltrim($path, '/');
 $request = explode('/', $path);
+dump($_POST);
 
+if(!empty($_POST['Vote'])){
+    $user = urldecode($request[2]);
+    $question = urldecode($request[3]);
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $vote = $_POST['Vote'];
+//*
+    $sql = "INSERT INTO voted SET `ip_address` = ?, `user` = ?, `question` = ?, `answer` = ? ";
+    $stmt = $dbConnection->prepare($sql); // sends query to the database
+    $stmt->bind_param("ssss",$ip_address,$user, $question,$vote); // binds variables to be sent with query
+    $stmt->execute(); // sends query
+    $worked = $stmt->affected_rows;
+//*/
+
+    if(!empty($worked) && $worked > 0){
+        $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?";
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        dump($stmt);
+        $stmt->bind_param("sss",$vote, $question,$user); // binds variables to be sent with query
+        $stmt->execute(); // sends query
+        $worked = $stmt->affected_rows;
+        if(!empty($worked) && $worked > 0){
+            echo "<div class='alert alert-success'>Your vote has been successfully submitted</div>";
+        }
+    } else{
+        $prevVote;
+        $newVote;
+        //TODO: add logic for changing vote 
+        /*
+        $sql = "UPDATE vote SET voted SET `ip_address` = ?, `user` = ?, `question` = ?, `answer` = ? ";
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("ssss",$ip_address,$user, $question,$vote); // binds variables to be sent with query
+        $stmt->execute(); // sends query
+        $worked = $stmt->affected_rows;
+        //*/
+    }
+}
 
 if(!empty($request[3])){
     $request[3] = urldecode($request[3]);
@@ -51,15 +90,15 @@ if(!empty($request[3])){
 
 <html lang="en">
 <!--Load the AJAX API-->
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<head>    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/VotingApp/styles/style.css">
      
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-
+        var url = document.getElementsByTagName('a')[0];
+        
         // Load the Visualization API and the corechart package.
         google.charts.load('current', {'packages': ['corechart']});
 
@@ -78,7 +117,7 @@ if(!empty($request[3])){
             // Set chart options
             var options = {
                 title: '$request[3] Total Votes: $totalVotes',               
-                legend: {position: "none"},
+                legend: {position: "tv"},
                 height: 600,
                 width:1000
             };
@@ -94,8 +133,8 @@ if(!empty($request[3])){
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><button class="btn btn-default navbar-btn margin_right"><a href="../../createaccount.php" role="button"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Create Account</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="../../index.php">Sign in </a><button</li>
+                <li><button class="btn btn-default navbar-btn margin_right"><a href="../../createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></button></li>
+                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="../../dashboard.php">Sign in </a><button</li>
             </ul>
         </div>
     </div>

@@ -46,7 +46,7 @@ if ($logged_in === 'yes') { // if you are still logged in
                 break;
             case 'Create':
                 require '/includes/create.inc.php';
-                require './includes/edit.inc.php';
+                Redirect('dashboard.php');
                 break;
             case 'Make':
                 require './make-poll.php';
@@ -81,6 +81,10 @@ if ($logged_in === 'yes') { // if you are still logged in
 } else {
     Redirect('index.php');
 }
+//TODO: social site integration and login
+//TODO: Password change
+//TODO: Account creation second input for confirm password
+//TODO: password hashing  
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

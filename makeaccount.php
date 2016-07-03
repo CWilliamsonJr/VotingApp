@@ -3,14 +3,19 @@ require_once './includes/includes.inc.php';
 $username = trim($_POST['user_name']);
 $password = trim($_POST['user_password']);
 
-
+if(strcmp($_POST['user_password'],$_POST['confirm_user_password']) !== 0 ){
+    $_SESSION['acct_warning'] = "<div class='alert alert-danger'>Passwords are not the same, please try again.</div>";
+    Redirect('createaccount.php');
+    die;
+}
 if(!empty($username) && !empty($password)){
     echo 'here';
     $sql = 'INSERT INTO users (`user_id`, `user_name`, `user_password`) VALUES (NULL, ?, ?)';
 
-
+    $password = password_hash($_POST['user_password'], PASSWORD_BCRYPT);
+    
     $stmt = $dbConnection->prepare($sql); // sends query to the database
-    $stmt->bind_param("ss",$_POST['user_name'],$_POST['user_password']); // binds variables to be sent with query
+    $stmt->bind_param("ss",$_POST['user_name'],$password); // binds variables to be sent with query
     $stmt->execute(); // sends query
     $successful = $stmt->affected_rows;
     if($successful === -1){

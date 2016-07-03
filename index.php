@@ -5,7 +5,7 @@
   <meta charset="utf-8">
 
   <title>Create your Poll</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="./styles/style.css">
 </head>
@@ -14,21 +14,21 @@
     <div class="container-fluid">
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="./dashboard.php"> Home</a></li>
+            <ul class="nav navbar-nav navbar-right margin_right">
+                <li><button class="btn btn-default navbar-btn margin_right"><a href="/createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></button></li>
+                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="./dashboard.php">Sign in </a></button></li>
             </ul>
-            <a href="createaccount.php"><button name="Task" value="Logout_site" type="submit" class="btn btn-default navbar-btn navbar-right margin_right">Create Account</button></a>
         </div>
     </div>
 </nav>
 <div class='jumbotron'>
-    <div class='container'>
+    <div class='container'>xxxxxxxxxx
         <div class='h1'>Welcome</div>
     </div>
 </div>
   <div class='container'>
     <div class='row'>
-
+        
       <div><span class='h1'>Log in to start making polls</span></div><br/>
         <?php
         require_once './includes/includes.inc.php';

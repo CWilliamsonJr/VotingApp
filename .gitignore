@@ -54,6 +54,10 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+ouath_info.*
+vendor/
+composer.lock
+tests/FacebookTestCredentials.php
 
 
 stats.php

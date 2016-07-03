@@ -5,21 +5,22 @@ if (!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))) 
 
     $username = $_POST['user_name'];
     $password = $_POST['user_password'];
-    $failedLogin = 'Wrong user name or password';
+    $failedLogin = 'Wrong user name and/or password';
 
-    $sql = "SELECT user_name,user_password,user_id FROM users WHERE user_name = ? AND user_password = ?"; // retrieves user name from the database
+    $sql = "SELECT user_name,user_password,user_id FROM users WHERE user_name = ?"; // retrieves user name from the database
     $stmt = $dbConnection->prepare($sql); // sends query to the database
-    $stmt->bind_param("ss", $username, $password);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $query = $stmt->get_result();
     $num_rows = $query->num_rows; // tells how many rows were returned
     $array = $query->fetch_assoc(); // returns username and password from the database
     $num_rows = $query->num_rows; // tells how many rows were returned
     $stmt->close();
+    $right = password_verify($password,$array['user_password']);
 
     $cookieTime = time() + 3600 * 24 * 30;
     if (!empty($num_rows)) {
-        if ($array['user_password'] === $password) {
+        if(password_verify($password,$array['user_password'])) {
             $_SESSION['uId'] = $array['user_id'];
             $_SESSION['uName'] = $array['user_name'];
             setcookie('logged_in', 'yes', $cookieTime);

@@ -7,7 +7,7 @@ require_once ('./includes/includes.inc.php');
     <meta charset="utf-8">
 
     <title>Create your Poll</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
@@ -16,10 +16,10 @@ require_once ('./includes/includes.inc.php');
     <div class="container-fluid">
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="./index.php"> Home</a></li>
+            <ul class="nav navbar-nav navbar-right margin_right">
+                <li><button class="btn btn-default navbar-btn margin_right"><a href="./index.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Home</a></button></li>
+                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;<a href="./dashboard.php">Sign in </a><button</li>
             </ul>
-            <a href="index.php"><button name="Task" value="Logout_site" type="submit" class="btn btn-default navbar-btn navbar-right margin_right">Login</button></a>
         </div>
     </div>
 </nav>
@@ -45,6 +45,10 @@ require_once ('./includes/includes.inc.php');
             <div class="form-group">
                 <label for="user_password">Password</label>
                 <input name='user_password' type="password" class="form-control input-width" id="user_password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <label for="user_password">Confirm Password</label>
+                <input name='confirm_user_password' type="password" class="form-control input-width" id="user_password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary">Create Account</button>
         </form>

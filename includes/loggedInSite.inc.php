@@ -12,8 +12,9 @@ if(!empty($num_rows)) {
     $polls = '';
     $i = 0;
     while($array = $query->fetch_assoc()) {
+        $link = htmlspecialchars("./vote.php/".$_SESSION['uName']."/".$array['Question']);        
         $polls .= '<li class="polls">
-                 <div><div class="h4"> <strong>' . $array['Question'] . '</strong> </div>
+                 <div><div class="h4"> <strong>' . $array['Question'] . '</strong><small> <a title="A link to your poll so people can vote" class="poll-link" target="_blank"  href="'.$link.'"><i class="fa fa-location-arrow" aria-hidden="true"> Poll Link</i></a></small> </div>
                    <label class="radio-inline"> 
                   <input type="radio" name="Task" id="optionsRadios' . $i++ . '" value="View_' . $array['Question'] . '">
                       View Results
