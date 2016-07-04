@@ -6,7 +6,7 @@ require_once 'includes/includes.inc.php';
 $path = $_SERVER['REQUEST_URI'];
 $path = ltrim($path, '/');
 $request = explode('/', $path);
-dump($_POST);
+$alerts = '&nbsp;';
 
 if(!empty($_POST['Vote'])){
     $user = urldecode($request[2]);
@@ -22,26 +22,43 @@ if(!empty($_POST['Vote'])){
 //*/
 
     if(!empty($worked) && $worked > 0){
-        $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?";
+        $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice = ? AND polls.Question = ? AND users.user_name = ?";
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        dump($stmt);
         $stmt->bind_param("sss",$vote, $question,$user); // binds variables to be sent with query
         $stmt->execute(); // sends query
         $worked = $stmt->affected_rows;
         if(!empty($worked) && $worked > 0){
-            echo "<div class='alert alert-success'>Your vote has been successfully submitted</div>";
+            $alerts = "<div class='alert alert-success'>Your vote has been successfully submitted</div>";
         }
     } else{
         $prevVote;
-        $newVote;
-        //TODO: add logic for changing vote 
-        /*
-        $sql = "UPDATE vote SET voted SET `ip_address` = ?, `user` = ?, `question` = ?, `answer` = ? ";
+
+        $sql = "SELECT answer FROM voted WHERE `ip_address` = ? AND `user` = ? AND `question` = ?"; // Gets previous Answer
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("ssss",$ip_address,$user, $question,$vote); // binds variables to be sent with query
+        $stmt->bind_param("sss",$ip_address,$user, $question); // binds variables to be sent with query
+        $stmt->execute(); // sends query
+        $query = $stmt->get_result();
+        $array = $query->fetch_assoc();
+
+        $prevVote = $array['answer'];
+
+        $sql = "UPDATE voted SET `answer` = ?  WHERE `ip_address` = ? AND `user` = ? AND `question` = ? "; // sets new answer
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("ssss",$vote ,$ip_address,$user, $question); // binds variables to be sent with query
         $stmt->execute(); // sends query
         $worked = $stmt->affected_rows;
-        //*/
+
+        $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen - 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?"; // rolls back previous option
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("sss",$prevVote, $question,$user); // binds variables to be sent with query
+        $stmt->execute(); // sends query
+
+        $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?"; // sets new option
+        $stmt = $dbConnection->prepare($sql); // sends query to the database
+        $stmt->bind_param("sss",$vote, $question,$user); // binds variables to be sent with query
+        $stmt->execute(); // sends query
+
+        $alerts =  "<div class='alert alert-warning'>Your vote has been successfully changed</div>";
     }
 }
 
@@ -146,6 +163,7 @@ if(!empty($request[3])){
 </div>
   <div class='container'>
     <div class='row col-sm-12'>
+        $alerts
         <div class="col-sm-4 margin-top-4">
             <form method="post" action="">          
                 <ul>
