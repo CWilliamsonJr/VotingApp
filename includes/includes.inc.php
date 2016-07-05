@@ -2,6 +2,7 @@
 session_start();
 require 'db_login.inc.php';
 require 'functions.inc.php';
+require 'poll-functions.inc.php';
  /*
 $fb = new Facebook\Facebook([
     'app_id' => 1581192785514986, // Replace {app-id} with your app id

@@ -1,19 +1,11 @@
 <?php
 
-
 $user_id = $_SESSION['uId'];
 $question = explode('_', $_POST['Task']); // Checks to see what you are trying to do
-
-
-$sql = "SELECT Choice,Chosen FROM polls WHERE User_created_id = ? AND Question = ? "; // retrieves user name from the database
-$stmt = $dbConnection->prepare($sql); // sends query to the database
-$stmt->bind_param("is", $user_id, $question[1]); // binds variables to be sent with query
-$stmt->execute(); // sends query
-$query = $stmt->get_result();
-$array = $query->fetch_all(MYSQLI_ASSOC);
+$array = ViewResults($dbConnection);
 
 $totalVotes = 0;
-$rows = array(); // used to store th data
+$rows = array(); // used to store the data
 $table = array(); // will hold the data and the labels
 $table['cols'] = array(  // sets the data type and label for the table
     array('id' => 'Option', 'label' => 'Choice', 'type' => 'string'),

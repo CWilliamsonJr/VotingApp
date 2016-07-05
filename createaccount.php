@@ -37,7 +37,7 @@ require_once ('./includes/includes.inc.php');
             }
         ?>
         <div><span class='h1'>Make your account</span></div><br/>
-        <form action='./makeaccount.php' method="post">
+        <form action='./makeaccount.inc.php' method="post">
             <div class="form-group">
                 <label for="user_name">User Name:</label>
                 <input name='user_name' type="text" class="form-control input-width" id="user_name" placeholder="User Name" required>

@@ -16,7 +16,7 @@ if (!empty(trim($_POST['user_name'])) && !empty(trim($_POST['user_password']))) 
     $array = $query->fetch_assoc(); // returns username and password from the database
     $num_rows = $query->num_rows; // tells how many rows were returned
     $stmt->close();
-    $right = password_verify($password,$array['user_password']);
+
 
     $cookieTime = time() + 3600 * 24 * 30;
     if (!empty($num_rows)) {

@@ -20,7 +20,7 @@
             <div class="navbar-brand">Voting Poll Web App</div>
             <ul class="nav navbar-nav navbar-right margin_right">
                 <li><button class="btn btn-default navbar-btn margin_right"><a href="./dashboard.php" role="button"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="./logout.php">Logout </a><button</li>
+                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="logout.inc.php">Logout </a><button</li>
             </ul>
         </div>
     </div>
@@ -45,38 +45,40 @@ if ($logged_in === 'yes') { // if you are still logged in
                 require './includes/edit.inc.php';
                 break;
             case 'Create':
-                require '/includes/create.inc.php';
+                
+                $todo[1] = MakePoll($dbConnection);
                 Redirect('dashboard.php');
                 break;
             case 'Make':
-                require './make-poll.php';
+                require './make-poll-form.php';
                 break;
-            case 'Update':
-                require './includes/update.inc.php';
+            case 'Update':                
+                $new_question = UpdatePoll($dbConnection);
+                if(!empty($new_question)){
+                    $todo[1] = $new_question;
+                }
                 require './includes/edit.inc.php';
                 break;
             case 'Delete':
-                require './includes/delete_poll.inc.php';
-                require './includes/loggedInSite.inc.php';
+                //require './includes/delete_poll.inc.php';
+                DeletePoll($dbConnection);
+                require './includes/poll-view.php';
                 break;
             case 'View':
-                require './includes/view.inc.php';
+                require './includes/view-results.inc.php';
                 break;
-            case 'Insert':
-                require './includes/insert.inc.php';
+            case 'Insert':               
+                NewPollOption($dbConnection);
                 require './includes/edit.inc.php';
                 break;
             case 'Logout':
-                setcookie('logged_in', 'yes', time()- 3600 *24 * 30* 12 ); //sets cookie to one year in the past
-                session_unset();
-                session_destroy();
-                Redirect('index.php');
+                require './logout.inc.php';
                 break;
             default:
-                require './includes/loggedInSite.inc.php';
+                require './includes/poll-view.php';
         }
     } else {
-        require './includes/loggedInSite.inc.php';
+        require './includes/poll-view.php';
     }
 } else {
     Redirect('index.php');
