@@ -58,8 +58,17 @@ $html = <<< HTML
     </script>
   
 <!--Div that will hold the pie chart-->
-<div id="chart_div"></div>
 
+<div class='jumbotron'>
+    <div class='container'>
+        <div class='h2'>Viewing Results for: <small>$question[1] </small> </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+<div id="chart_div"></div>
+    </div>
+</div>
 HTML;
 echo $html;
 

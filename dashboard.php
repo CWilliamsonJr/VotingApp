@@ -18,19 +18,14 @@ require_once './includes/includes.inc.php';
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="">
-            <div class="navbar-brand">Voting Poll Web App</div>
+            <div class="navbar-brand"><a class="nounderline" href="./dashboard.php">Voting Poll Web App</a></div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><button class="btn btn-default navbar-btn margin_right"><a href="./dashboard.php" role="button"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="logout.inc.php">Logout </a><button</li>
+                <li><a href="./dashboard.php" role="button"><i class="fa fa-home" aria-hidden="true">&nbsp;Home</i></a></li>
+                <li><a href="logout.inc.php"><i class="fa fa-sign-out" aria-hidden="true">&nbsp;Logout</i> </a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class='jumbotron'>
-    <div class='container'>
-        <div class='h1'>Dashboard</div>
-    </div>
-</div>
 <?php
 
 $logged_in = $_COOKIE['logged_in'];
@@ -43,7 +38,7 @@ if ($logged_in === 'yes') { // if you are still logged in
         $todo = explode('_', $_POST['Task']); // Checks to see what you are trying to do
         switch ($todo[0]) {
             case 'Edit':
-                require './includes/edit.php';
+                require './edit.php';
                 break;
             case 'Create':                
                 $todo[1] = MakePoll($dbConnection);
@@ -57,27 +52,27 @@ if ($logged_in === 'yes') { // if you are still logged in
                 if(!empty($new_question)){
                     $todo[1] = $new_question;
                 }
-                require './includes/edit.php';
+                require './edit.php';
                 break;
             case 'Delete':
                 DeletePoll($dbConnection);
-                require './includes/poll-view.php';
+                require './poll-view.php';
                 break;
             case 'View':
-                require './includes/view-results.inc.php';
+                require './view-results.inc.php';
                 break;
             case 'Insert':               
                 NewPollOption($dbConnection);
-                require './includes/edit.php';
+                require './edit.php';
                 break;
             case 'Logout':
                 require './logout.inc.php';
                 break;
             default:
-                require './includes/poll-view.php';
+                require './poll-view.php';
         }
     } else {
-        require './includes/poll-view.php';
+        require './poll-view.php';
     }
 } else {
     Redirect('index.php');
@@ -85,6 +80,10 @@ if ($logged_in === 'yes') { // if you are still logged in
 //TODO: social site integration and loginxxxx
 
 ?>
+<footer>
+    <div class=''>Designed by Clarence Williamson
+    </div>
+</footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="./scripts/index.js"></script>

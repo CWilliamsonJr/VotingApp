@@ -15,8 +15,8 @@
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><button class="btn btn-default navbar-btn margin_right"><a href="./createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="./dashboard.php">Sign in </a></button></li>
+                <li><a href="./createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></li>
+                <li><a href="./dashboard.php"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign in </a></li>
             </ul>
         </div>
     </div>
@@ -50,6 +50,10 @@
       </form>
     </div>
   </div>
+<footer>
+    <div class=''>Designed by Clarence Williamson
+    </div>
+</footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" ></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
 </body>

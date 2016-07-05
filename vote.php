@@ -8,7 +8,7 @@ $path = ltrim($path, '/');
 $request = explode('/', $path);
 $alerts = '&nbsp;';
 
-if(!empty($_POST['Vote'])){
+if(!empty($_POST['Vote'])) {
     $user = urldecode($request[2]);
     $question = urldecode($request[3]);
     $ip_address = $_SERVER['REMOTE_ADDR'];
@@ -16,26 +16,26 @@ if(!empty($_POST['Vote'])){
 //*
     $sql = "INSERT INTO voted SET `ip_address` = ?, `user` = ?, `question` = ?, `answer` = ? ";
     $stmt = $dbConnection->prepare($sql); // sends query to the database
-    $stmt->bind_param("ssss",$ip_address,$user, $question,$vote); // binds variables to be sent with query
+    $stmt->bind_param("ssss", $ip_address, $user, $question, $vote); // binds variables to be sent with query
     $stmt->execute(); // sends query
     $worked = $stmt->affected_rows;
 //*/
 
-    if(!empty($worked) && $worked > 0){
+    if(!empty($worked) && $worked > 0) {
         $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice = ? AND polls.Question = ? AND users.user_name = ?";
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("sss",$vote, $question,$user); // binds variables to be sent with query
+        $stmt->bind_param("sss", $vote, $question, $user); // binds variables to be sent with query
         $stmt->execute(); // sends query
         $worked = $stmt->affected_rows;
-        if(!empty($worked) && $worked > 0){
+        if(!empty($worked) && $worked > 0) {
             $alerts = "<div class='alert alert-success'>Your vote has been successfully submitted</div>";
         }
-    } else{
+    } else {
         $prevVote;
 
         $sql = "SELECT answer FROM voted WHERE `ip_address` = ? AND `user` = ? AND `question` = ?"; // Gets previous Answer
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("sss",$ip_address,$user, $question); // binds variables to be sent with query
+        $stmt->bind_param("sss", $ip_address, $user, $question); // binds variables to be sent with query
         $stmt->execute(); // sends query
         $query = $stmt->get_result();
         $array = $query->fetch_assoc();
@@ -44,25 +44,25 @@ if(!empty($_POST['Vote'])){
 
         $sql = "UPDATE voted SET `answer` = ?  WHERE `ip_address` = ? AND `user` = ? AND `question` = ? "; // sets new answer
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("ssss",$vote ,$ip_address,$user, $question); // binds variables to be sent with query
+        $stmt->bind_param("ssss", $vote, $ip_address, $user, $question); // binds variables to be sent with query
         $stmt->execute(); // sends query
         $worked = $stmt->affected_rows;
 
         $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen - 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?"; // rolls back previous option
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("sss",$prevVote, $question,$user); // binds variables to be sent with query
+        $stmt->bind_param("sss", $prevVote, $question, $user); // binds variables to be sent with query
         $stmt->execute(); // sends query
 
         $sql = "UPDATE polls JOIN users SET polls.Chosen = polls.Chosen + 1 WHERE polls.User_created_id = users.user_id AND polls.Choice =? AND polls.Question = ? AND users.user_name = ?"; // sets new option
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("sss",$vote, $question,$user); // binds variables to be sent with query
+        $stmt->bind_param("sss", $vote, $question, $user); // binds variables to be sent with query
         $stmt->execute(); // sends query
 
-        $alerts =  "<div class='alert alert-warning'>Your vote has been successfully changed</div>";
+        $alerts = "<div class='alert alert-warning'>Your vote has been successfully changed</div>";
     }
 }
 
-if(!empty($request[3])){
+if(!empty($request[3])) {
     $request[3] = urldecode($request[3]);
     $sql = "SELECT Choice,Chosen FROM polls JOIN users WHERE polls.User_created_id = users.user_id  AND polls.Question = ? AND users.user_name = ?"; // retrieves user name from the database
     $stmt = $dbConnection->prepare($sql); // sends query to the database
@@ -90,7 +90,7 @@ if(!empty($request[3])){
     $jsonTable = json_encode($table);
     $i = 1;
     $polls = '';
-    foreach($array as $key => $results){
+    foreach($array as $key => $results) {
         $polls .= '<li class="polls poll-vote input-width">
                          <div class="input-width poll-choices">
                             <label class="radio-inline">                                 
@@ -150,8 +150,8 @@ if(!empty($request[3])){
         <div class="">
             <div class="navbar-brand">Voting Poll Web App</div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><button class="btn btn-default navbar-btn margin_right"><a href="../../createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;<a href="../../dashboard.php">Sign in </a><button</li>
+                <li><a href="./createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></li>
+                <li><a href="./dashboard.php"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign in </a></li>
             </ul>
         </div>
     </div>
@@ -178,6 +178,10 @@ if(!empty($request[3])){
             <div id="chart_div"></div>
         </div>
     </div>
+  <footer>
+    <div class=''>Designed by Clarence Williamson
+    </div>
+  </footer>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" ></script>
       <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
       <script src="/VotingApp/scripts/index.js"></script>
