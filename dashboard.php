@@ -1,3 +1,6 @@
+<?php
+require_once './includes/includes.inc.php';
+?>
 <!doctype html>
 
 <html lang="en">
@@ -9,9 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
-    <?php
-    require_once './includes/includes.inc.php';
-    ?>
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -42,10 +43,9 @@ if ($logged_in === 'yes') { // if you are still logged in
         $todo = explode('_', $_POST['Task']); // Checks to see what you are trying to do
         switch ($todo[0]) {
             case 'Edit':
-                require './includes/edit.inc.php';
+                require './includes/edit.php';
                 break;
-            case 'Create':
-                
+            case 'Create':                
                 $todo[1] = MakePoll($dbConnection);
                 Redirect('dashboard.php');
                 break;
@@ -57,10 +57,9 @@ if ($logged_in === 'yes') { // if you are still logged in
                 if(!empty($new_question)){
                     $todo[1] = $new_question;
                 }
-                require './includes/edit.inc.php';
+                require './includes/edit.php';
                 break;
             case 'Delete':
-                //require './includes/delete_poll.inc.php';
                 DeletePoll($dbConnection);
                 require './includes/poll-view.php';
                 break;
@@ -69,7 +68,7 @@ if ($logged_in === 'yes') { // if you are still logged in
                 break;
             case 'Insert':               
                 NewPollOption($dbConnection);
-                require './includes/edit.inc.php';
+                require './includes/edit.php';
                 break;
             case 'Logout':
                 require './logout.inc.php';
@@ -83,10 +82,8 @@ if ($logged_in === 'yes') { // if you are still logged in
 } else {
     Redirect('index.php');
 }
-//TODO: social site integration and login
-//TODO: Password change
-//TODO: Account creation second input for confirm password
-//TODO: password hashing  
+//TODO: social site integration and loginxxxx
+
 ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
