@@ -1,7 +1,7 @@
 <?php
 $dbhostname = 'localhost';
-$dbusername = 'voteApp';
-$dbpassword = 'abc123';
+$dbusername = 'VoteApp';
+$dbpassword = 'FzfjWdp65PTDq9KB';
 $databaseName = 'votingapp';
 $dbConnection = new mysqli($dbhostname,$dbusername,$dbpassword,$databaseName);
 

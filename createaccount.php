@@ -15,10 +15,10 @@ require_once ('./includes/includes.inc.php');
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="">
-            <div class="navbar-brand">Voting Poll Web App</div>
+            <div class="navbar-brand"><a class="nounderline" href="./dashboard.php">Voting Poll Web App</a></div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><button class="btn btn-default navbar-btn margin_right"><a href="./index.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Home</a></button></li>
-                <li><button class="btn btn-default navbar-btn"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;<a href="./dashboard.php">Sign in </a><button</li>
+                <li><a href="./createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true">&nbsp;Create Account</i></a></li>
+                <li><a href="./dashboard.php"><i class="fa fa-sign-out" aria-hidden="true">&nbsp;Sign in</i> </a></li>
             </ul>
         </div>
     </div>

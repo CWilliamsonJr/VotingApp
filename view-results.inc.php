@@ -49,7 +49,9 @@ $html = <<< HTML
                 title: '$question[1] Total Votes: $totalVotes',                     
                 bars: 'hor',
                 legend: { position: "none" },                
-                height: 600
+                height: 600,
+                backgroundColor:'#BDBBB0',
+                colors:['#AA7230']
             };
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));

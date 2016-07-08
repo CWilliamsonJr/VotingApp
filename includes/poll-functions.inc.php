@@ -88,11 +88,12 @@ function UpdatePoll($dbConnection) {
     }
     if(strcmp($_SESSION['q'], $_POST['poll_question']) !== 0 && !empty($_POST['poll_question'])) {
         $q_id = $_SESSION['q_id'];
+        $username = $_SESSION['uName'];
         $poll_question = $_POST['poll_question'];
-
-        $sql = "UPDATE questions, voted, polls SET questions.Question = ?, polls.Question = ?, voted.question = ?  WHERE voted.question = questions.Question AND polls.Question = questions.Question AND questions.ID = ?";
+ 
+        $sql = "UPDATE questions, voted, polls SET questions.Question = ?, polls.Question = ?, voted.question = ?  WHERE questions.ID = ? AND voted.user = ? AND polls.Question_id = ?";
         $stmt = $dbConnection->prepare($sql); // sends query to the database
-        $stmt->bind_param("sssi", $poll_question, $poll_question, $poll_question, $q_id); // binds variables to be sent with query
+        $stmt->bind_param("sssisi", $poll_question, $poll_question, $poll_question, $q_id,$username,$q_id); // binds variables to be sent with query
         $stmt->execute();
 
         return $poll_question; //todo[1]

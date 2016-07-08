@@ -39,7 +39,7 @@ if(!empty($num_rows)) {
 $html = <<<HTML
 <div class='jumbotron'>
     <div class='container'>
-        <div class='h1'>Dashboard</div>
+        <div class='h2'>Poll View: <small>Choose what you want to do to your polls. If you just created one, a link is provided to the poll for people to vote.</small></div>
     </div>
 </div>
 <div class='container'>

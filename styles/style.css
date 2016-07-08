@@ -35,6 +35,9 @@
 .poll-link{
     color:#DD7230;
 }
+.delete_btn{
+    color: #DD7230;
+}
 a:hover  {
     text-decoration: none;
 }

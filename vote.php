@@ -1,6 +1,6 @@
 <?php
-//TODO: AJAX Call for Google charts
-//TODO: App redo with using functions instead of inc
+
+
 require_once 'includes/includes.inc.php';
 
 $path = $_SERVER['REQUEST_URI'];
@@ -84,6 +84,7 @@ if(!empty($request[3])) {
         $temp = array();
         $temp[] = array('v' => (string)$results['Choice']); // poll option
         $temp[] = array('v' => (int)$results['Chosen']); // poll votes
+
         $rows[] = array('c' => $temp);
     }
     $table['rows'] = $rows;
@@ -136,7 +137,11 @@ if(!empty($request[3])) {
                 title: '$request[3] Total Votes: $totalVotes',               
                 legend: {position: "tv"},
                 height: 600,
-                width:1000
+                width:1000,
+                backgroundColor:'#BDBBB0',
+                colors:['#AA7230']
+               
+                
             };
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -148,23 +153,23 @@ if(!empty($request[3])) {
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="">
-            <div class="navbar-brand">Voting Poll Web App</div>
+         <div class="navbar-brand"><a class="nounderline" href="../../dashboard.php">Voting Poll Web App</a></div>
             <ul class="nav navbar-nav navbar-right margin_right">
-                <li><a href="./createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Account</a></li>
-                <li><a href="./dashboard.php"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign in </a></li>
+                <li><a href="../../createaccount.php" role="button"><i class="fa fa-plus" aria-hidden="true">&nbsp;Create Account</i></a></li>
+                <li><a href="../../dashboard.php"><i class="fa fa-sign-out" aria-hidden="true">&nbsp;Sign in</i> </a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class='jumbotron'>
     <div class='container'>
-        <div class='h1'>Welcome</div>
+        <div class='h2'>Cast your vote: <small>You can only vote once, however you can change your vote.</small></div>
     </div>
 </div>
   <div class='container'>
     <div class='row col-sm-12'>
         $alerts
-        <div class="col-sm-4 margin-top-4">
+        <div class="col-md-4 margin-top-4">
             <form method="post" action="">          
                 <ul>
                     $polls
@@ -172,11 +177,12 @@ if(!empty($request[3])) {
                 <button type="submit" class="btn btn-primary input-width btn-block text-left">Submit vote</button>
             </form>
         </div>
-                
-        <div class="col-sm-8">
+           <br/>     
+        <div class="col-md-8">
         <!--Div that will hold the pie chart-->
             <div id="chart_div"></div>
         </div>
+    </div>
     </div>
   <footer>
     <div class=''>Designed by Clarence Williamson
